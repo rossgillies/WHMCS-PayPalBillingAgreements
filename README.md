@@ -22,14 +22,13 @@ CREATE TABLE `paypal_billingagreement` (
     `status` varchar(32) NOT NULL,
     `created_at` int(10) NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`client_id`) REFERENCES `tblclients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 ```
 4. Activate the module in WHMCS Admin => Payment Gateways
 5. Enter your PayPal API Username, Password, and Signature in WHMCS Admin => Payment Gateways => PayPal Billing Agreement
 6. *(Optional)* Set your IPN URL to `https://your.site/modules/gateways/callback/paypalbilling.php`. If you don't setup your IPN URL, consider enabling "Enable Cron Status Check" under the payment gateways module options. *(Warning: Running the cron status check with many active billing agreements may significantly extend the runtime of the cron job)*
 7. Run a cron job at 11:00 PM every night:
-`0 23 * * php -q /path/to/whmcs/modules/gateways/paypalbilling/cron.php`
+`0 7 * * * php -q /path/to/whmcs/modules/gateways/paypalbilling/cron.php`
 
 ### Limitations
 - Currently designed to make auto-payments on a separate cron job. It's best to run this cron job at a separate time from your normal WHMCS daily cron to avoid conflicts.
