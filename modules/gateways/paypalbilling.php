@@ -62,8 +62,13 @@ function paypalbilling_link($params)
         ->disableautocc;
 
     $processString = '';
-
-    if ($billingAgreement && !$disableAutoCCProcessing) {
+    
+    $addFunds = Capsule::table('tblinvoiceitems')
+        ->where('invoiceid', '=', $invoice->id)
+        ->where('type', '=', 'AddFunds')
+        ->count();
+    
+    if ($billingAgreement && !$disableAutoCCProcessing && ($addFunds > 0)) {
         $ccProcessDaysBefore = @Capsule::table('tblconfiguration')
             ->where('setting', '=', 'CCProcessDaysBefore')
             ->first()
