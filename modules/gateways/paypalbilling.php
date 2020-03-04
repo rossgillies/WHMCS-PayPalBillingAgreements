@@ -75,15 +75,15 @@ function paypalbilling_link($params)
             ->value;
         $ccProcessDaysBefore = intval($ccProcessDaysBefore);
 
-        $startProcessDate = strtotime("-{$ccProcessDaysBefore} days", strtotime($params['dueDate'])) + 3600 * 23;
-        $thisProcessDate = strtotime('today 23:00');
+        $startProcessDate = strtotime("-{$ccProcessDaysBefore} days", strtotime($params['dueDate'])) + 3600 * 7;
+        $thisProcessDate = strtotime('today 07:00');
 
         if ($thisProcessDate < time()) {
-            $thisProcessDate = strtotime('tomorrow 23:00');
+            $thisProcessDate = strtotime('tomorrow 07:00');
         }
 
         $nextProcessDate = max($startProcessDate, $thisProcessDate);
-        $processString = '<br /><p>We\'ll attempt to automatically charge your PayPal account on ' . date('m/d/Y', $nextProcessDate) . ' at ' . date('g:iA T', $nextProcessDate) . '.</p>';
+        $processString = '<br /><p>We\'ll attempt to automatically charge your PayPal account on ' . date('d/m/Y', $nextProcessDate) . ' at ' . date('g:iA T', $nextProcessDate) . '.</p>';
     }
 
     return <<<EOF
