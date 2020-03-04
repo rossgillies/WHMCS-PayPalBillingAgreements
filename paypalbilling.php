@@ -273,7 +273,7 @@ switch ($action) {
         }
 
         $ca->assign('billingAgreement', $agreement);
-        $ca->assign('billingAgreementDate', date('m/d/Y', @$agreement->created_at));
+        $ca->assign('billingAgreementDate', date('d/m/Y', @$agreement->created_at));
         $ca->assign('action', $action);
         $ca->setTemplate('paypalbilling');
 
